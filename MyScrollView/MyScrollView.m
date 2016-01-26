@@ -16,15 +16,19 @@
         UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panMethod:)];
         [self addGestureRecognizer:panGesture];
         
-        _currentY = 0;
     }
     return self;
 }
 
 - (void)panMethod:(UIPanGestureRecognizer *)sender {
     CGPoint translation = [sender translationInView:self];
-    self.bounds = CGRectMake(0, -translation.y, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds));
+    self.bounds = CGRectMake(0, self.lastLocation.y - translation.y, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds));
 
+
+}
+- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    // Remember original location
+    self.lastLocation = self.bounds.origin;
 }
 
 

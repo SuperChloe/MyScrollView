@@ -11,6 +11,6 @@
 @interface MyScrollView : UIView
 
 @property (nonatomic, assign) CGSize contentSize;
-@property (nonatomic, assign) CGFloat currentY;
+@property (nonatomic, assign) CGPoint lastLocation;
 
 @end
