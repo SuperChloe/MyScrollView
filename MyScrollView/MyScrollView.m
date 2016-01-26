@@ -15,6 +15,8 @@
     if (self) {
         UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panMethod:)];
         [self addGestureRecognizer:panGesture];
+        
+        _currentY = 0;
     }
     return self;
 }
@@ -22,6 +24,7 @@
 - (void)panMethod:(UIPanGestureRecognizer *)sender {
     CGPoint translation = [sender translationInView:self];
     self.bounds = CGRectMake(0, -translation.y, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds));
+
 }
 
 
