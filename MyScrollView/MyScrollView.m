@@ -22,15 +22,18 @@
 
 - (void)panMethod:(UIPanGestureRecognizer *)sender {
     CGPoint translation = [sender translationInView:self];
-    self.bounds = CGRectMake(0, self.lastLocation.y - translation.y, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds));
+    CGFloat y = translation.y - self.lastLocation.y;
 
+    if (self.frame.origin.y + y >= [[UIScreen mainScreen] bounds].size.height - self.frame.size.height && self.frame.origin.y + y <= 0) {
+        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y + y, 400, 750);
+    }
 
+    self.lastLocation = translation;
+    
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        self.lastLocation = CGPointMake(0, 0);
+    }
 }
-- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    // Remember original location
-    self.lastLocation = self.bounds.origin;
-}
-
 
 /*
 // Only override drawRect: if you perform custom drawing.
